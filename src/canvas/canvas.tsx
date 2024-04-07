@@ -1,13 +1,12 @@
+import { CanvasHandler, CanvasProps } from './types'
 import { useCanvas } from './use-canvas'
 
-interface CanvasProps extends React.CanvasHTMLAttributes<HTMLCanvasElement> {}
+interface CanvasComponentProps {
+  readonly args: CanvasProps
+}
 
-type CanvasArrCb = [HTMLCanvasElement, CanvasRenderingContext2D]
-
-export function Canvas(
-  args: CanvasProps
-) {
-  function canvasDrawHandler([canvas, context]: CanvasArrCb) {
+export function Canvas({ args }: CanvasComponentProps) {
+  const canvasDrawHandler: CanvasHandler = ([canvas, context]) => {
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
 
