@@ -1,4 +1,7 @@
-export interface CanvasProps extends React.CanvasHTMLAttributes<HTMLCanvasElement> {}
+export interface CanvasProps extends React.CanvasHTMLAttributes<HTMLCanvasElement> {
+  id?: string;
+  elementOnFocus: boolean;
+}
 
 export type CanvasHandlerArgsType = [HTMLCanvasElement, CanvasRenderingContext2D]
 

@@ -1,45 +1,51 @@
-import { useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { CanvasHandler, CanvasProps } from './types'
 import { useCanvas } from './use-canvas'
 
-interface CanvasComponentProps {
-  readonly args?: CanvasProps
-}
+function Canvas(args: CanvasProps) {
+  const { elementOnFocus } = args
+  let animationID: number
 
-export function Canvas({ args }: CanvasComponentProps) {
   const canvasDrawHandler: CanvasHandler = ([canvas, context]) => {
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
-
+  
   const canvasRef = useCanvas(canvasDrawHandler)
 
   function drawMutation(
     context: CanvasRenderingContext2D | null | undefined,
-    count: number
   ) {
-    context?.clearRect(0, 0, context.canvas.width, context.canvas.height)
-    const delta = count % 800
-    context?.fillRect(10 + delta, 10, 100, 100)
+    if (!context) return
+
+    context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+    context.fillRect(0, 0, 350, 1080)
+    context.fillStyle = 'black'
+
+    if (elementOnFocus) {
+      context.strokeStyle = 'purple'
+      context.lineWidth = 10
+      context.strokeRect(0, 0, context.canvas.width, context.canvas.height)
+    }
   }
 
   function handleMutation() {
     const canvas = canvasRef.current
     const context = canvas?.getContext('2d')
-    let count = 0
-    let animationID: number
-
     const rerender = () => {
-      count ++
-      drawMutation(context, count)
+      drawMutation(context)
       animationID = window.requestAnimationFrame(rerender)
     }
 
     rerender()
-
-    return () => {
-      window.cancelAnimationFrame(animationID)
-    }
   }
+
+  useEffect(() => {
+    drawMutation(canvasRef.current?.getContext('2d'))
+
+    return () => window.cancelAnimationFrame(animationID)
+  }, [elementOnFocus])
 
   return <canvas ref={canvasRef} onClick={handleMutation} {...args} />
 }
+
+export default memo(Canvas)
