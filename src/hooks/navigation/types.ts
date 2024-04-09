@@ -17,3 +17,8 @@ export interface NavigationHandlerParams {
   elementOnFocus: string;
   setElementOnFocus: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface FocusHandlerParams {
+  elementId?: string;
+  focusStateDispatcher: React.Dispatch<React.SetStateAction<string>>;
+}
