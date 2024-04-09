@@ -5,16 +5,15 @@ import { useNavigationHandler } from '../../hooks/navigation/use-navigation-hand
 import { getDOMElement } from '../../utils/get-dom-element'
 
 export function Home() {
-  const [elementOnFocus, setElementOnFocus] = useState<string>('')
+  const [elementOnFocus, setElementOnFocus] = useState<string>(`${FocusKey.CANVAS}-0`)
   const navigationHandler = useNavigationHandler({
     elementOnFocus,
     setElementOnFocus,
   })
 
   useEffect(() => {
-    const element = getDOMElement(`${FocusKey.CANVAS}-0`)
+    const element = getDOMElement(elementOnFocus)
     element?.focus()
-    setElementOnFocus(`${FocusKey.CANVAS}-0`)
   }, [])
 
   useEffect(() => {

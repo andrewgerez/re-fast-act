@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { getDOMElement } from '../../utils/get-dom-element'
-import { NavigationDirections, NavigationHandlerParams } from './types'
+import { FocusKey, NavigationDirections, NavigationHandlerParams } from './types'
 
 export function useNavigationHandler({
   elementOnFocus,
@@ -12,7 +12,7 @@ export function useNavigationHandler({
     const previousElementId = element?.previousElementSibling?.id
   
     if (event.key === NavigationDirections.ARROW_RIGHT && nextElementId) {
-      if (!nextElementId.startsWith('canvas')) return
+      if (!nextElementId.startsWith(FocusKey.CANVAS)) return
   
       const nextElement = getDOMElement(nextElementId)
       nextElement?.focus()
@@ -20,7 +20,7 @@ export function useNavigationHandler({
     }
   
     if (event.key === NavigationDirections.ARROW_LEFT && previousElementId) {
-      if (!previousElementId?.startsWith('canvas')) return
+      if (!previousElementId?.startsWith(FocusKey.CANVAS)) return
   
       const previousElement = getDOMElement(previousElementId)
       previousElement?.focus()
