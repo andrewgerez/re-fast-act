@@ -18,8 +18,7 @@ function Canvas(args: CanvasProps) {
     if (!context) return
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-    context.fillRect(0, 0, 350, 1080)
-    context.fillStyle = 'black'
+    context.fillRect(0, 0, Number(args.width), Number(args.height))
 
     if (elementOnFocus) {
       context.strokeStyle = 'purple'
