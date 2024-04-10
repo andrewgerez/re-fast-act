@@ -21,13 +21,12 @@ function Canvas(args: CanvasProps) {
     context.fillRect(0, 0, Number(args.width), Number(args.height))
 
     const img = new Image()
-    img.src = '' // TO-DO: insert image url
+    img.src = args.posterPath
     img.onload = () => {
       context?.drawImage(img, 0, 0)
     }
 
     if (elementOnFocus) {
-      context.strokeStyle = 'purple'
       context.lineWidth = 10
       context.strokeRect(0, 0, context.canvas.width, context.canvas.height)
     }
