@@ -2,6 +2,7 @@ import { memo, useEffect } from 'react'
 import { CanvasHandler, CanvasProps } from './types'
 import { useCanvas } from './use-canvas'
 
+// TO-DO: adjust args type (use readonly or constructor class)
 function Canvas(args: CanvasProps) {
   const { elementOnFocus } = args
   let animationID: number
@@ -15,10 +16,10 @@ function Canvas(args: CanvasProps) {
   function drawMutation(
     context: CanvasRenderingContext2D | null | undefined,
   ) {
-    if (!context) return
+    if (!context) return 
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-    context.fillRect(0, 0, Number(args.width), Number(args.height))
+    context.fillRect(0, 0, args?.dimensions[0], args.dimensions[1])
 
     const img = new Image()
     img.src = args.posterPath
@@ -32,24 +33,14 @@ function Canvas(args: CanvasProps) {
     }
   }
 
-  function handleMutation() {
-    const canvas = canvasRef.current
-    const context = canvas?.getContext('2d')
-    const rerender = () => {
-      drawMutation(context)
-      animationID = window.requestAnimationFrame(rerender)
-    }
-
-    rerender()
-  }
-
   useEffect(() => {
-    drawMutation(canvasRef.current?.getContext('2d'))
+    const context = canvasRef.current?.getContext('2d')
+    drawMutation(context)
 
     return () => window.cancelAnimationFrame(animationID)
   }, [elementOnFocus])
 
-  return <canvas ref={canvasRef} onClick={handleMutation} {...args} />
+  return <canvas ref={canvasRef} {...args} />
 }
 
 export default memo(Canvas)
