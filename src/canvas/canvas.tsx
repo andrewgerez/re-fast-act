@@ -20,6 +20,12 @@ function Canvas(args: CanvasProps) {
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
     context.fillRect(0, 0, Number(args.width), Number(args.height))
 
+    const img = new Image()
+    img.src = '' // TO-DO: insert image url
+    img.onload = () => {
+      context?.drawImage(img, 0, 0)
+    }
+
     if (elementOnFocus) {
       context.strokeStyle = 'purple'
       context.lineWidth = 10
