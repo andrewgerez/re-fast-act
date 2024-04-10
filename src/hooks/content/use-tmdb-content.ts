@@ -8,8 +8,10 @@ export const useTMDBContent = () => {
     return await get(TMDBEnum.BASE_API)
   }
 
-  return useQuery({
+  const { data } = useQuery({
     queryFn: fetchTMDBList,
     queryKey: ["fetchTMDBList"],
   })
+
+  return { contents: data?.results }
 }

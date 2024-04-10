@@ -9,6 +9,8 @@ import Canvas from '../../canvas'
 import { CardCanvasDimensions } from '../../canvas/canvas-dimensions'
 
 export function Home() {
+  const { contents } = useTMDBContent()
+  
   const [elementOnFocus, setElementOnFocus] = useState<string>(`${FocusKey.CANVAS}-0`)
   const navigationHandler = useNavigationHandler({
     elementOnFocus,
@@ -27,9 +29,6 @@ export function Home() {
       window.removeEventListener(NavigationEvents.KEY_DOWN, navigationHandler)
     }
   }, [navigationHandler])
-  
-  const { data } = useTMDBContent()
-  const contents = data?.results
 
   return (
     <Container>
