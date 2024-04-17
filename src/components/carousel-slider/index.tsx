@@ -3,7 +3,7 @@ import CardCanvas from '../../canvas/card-canvas'
 import { TMDBEnum } from '../../enums'
 import { Content } from '../../hooks/content/types'
 import { FocusKey } from '../../hooks/navigation/types'
-import { Wrapper } from './styles'
+import { SideBlur, Wrapper } from './styles'
 
 interface ICarouselSlider {
   carouselIndex: number
@@ -18,6 +18,21 @@ export function CarouselSlider({
   elementOnFocus,
   onContentFocus
 }: ICarouselSlider) {
+  function scrollOnFocusReceived(id: string, index: number) {
+    const element = document.getElementById(id);
+
+    if (!element) return;
+
+    const elementWidth = element.offsetWidth;
+    const parentElement = element?.parentElement;
+
+    parentElement?.scrollTo({
+      top: 0,
+      left: elementWidth * index,
+      behavior: 'smooth',
+
+    })
+  }
 
   return (
     <Wrapper id={`${FocusKey.CAROUSEL}-${carouselIndex}`}>
@@ -26,6 +41,7 @@ export function CarouselSlider({
 
         const onCardFocus = () => {
           onContentFocus(content.backdrop_path)
+          scrollOnFocusReceived(focusKey, index)
         }
 
         return (
