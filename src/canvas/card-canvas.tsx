@@ -3,33 +3,37 @@ import { CanvasHandler, CanvasProps } from './types'
 import { useCanvas } from './use-canvas'
 
 // TO-DO: adjust args type (use readonly or constructor class)
-function Canvas(args: CanvasProps) {
+function CardCanvas(args: CanvasProps) {
   const { elementOnFocus } = args
+  const [width, height] = args.dimensions
+  const dimensions = { width, height }
   let animationID: number
 
   const canvasDrawHandler: CanvasHandler = ([canvas, context]) => {
     context.fillRect(0, 0, canvas.width, canvas.height)
   }
-  
+
   const canvasRef = useCanvas(canvasDrawHandler)
 
   function drawMutation(
     context: CanvasRenderingContext2D | null | undefined,
   ) {
-    if (!context) return 
+    if (!context) return
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height)
-    context.fillRect(0, 0, args?.dimensions[0], args.dimensions[1])
 
     const img = new Image()
     img.src = args.posterPath
     img.onload = () => {
-      context?.drawImage(img, 0, 0)
-    }
+      context.drawImage(img, 0, 0)
 
-    if (elementOnFocus) {
-      context.lineWidth = 10
-      context.strokeRect(0, 0, context.canvas.width, context.canvas.height)
+      if (elementOnFocus) {
+        context.strokeStyle = 'orange'
+        context.lineWidth = 10
+        context.strokeRect(0, 0, width, height)
+        
+        args.onCardFocus()
+      }
     }
   }
 
@@ -40,7 +44,7 @@ function Canvas(args: CanvasProps) {
     return () => window.cancelAnimationFrame(animationID)
   }, [elementOnFocus])
 
-  return <canvas ref={canvasRef} {...args} />
+  return <canvas ref={canvasRef} {...args} {...dimensions} />
 }
 
-export default memo(Canvas)
+export default memo(CardCanvas)

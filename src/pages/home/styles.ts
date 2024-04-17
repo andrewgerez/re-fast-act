@@ -1,23 +1,24 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  position: relative;
   width: 100vw;
   height: 100vh;
-
-  position: relative;
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: #000;
+  flex-direction: column;
+  background-color: gray;
 `;
 
-export const Wrapper = styled.div`
-  display: flex;
-  gap: 1rem;
+export const Hero = styled.div`
+  width: 100%;
+  height: 37rem;
+  background-color: black;
+`;
 
-  padding: 0 5rem;
-  max-width: 80rem;
-  height: auto;
-  overflow: hidden;
+export const CarouselsWrapper = styled.div`
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 40rem;
+  gap: 1rem;
 `;

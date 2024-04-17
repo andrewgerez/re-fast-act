@@ -10,6 +10,8 @@ export enum NavigationDirections {
 }
 
 export enum FocusKey {
+  "HERO" = "hero",
+  "CAROUSEL" = "carousel",
   "CANVAS" = "canvas",
 }
 

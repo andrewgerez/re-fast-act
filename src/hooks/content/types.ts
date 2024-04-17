@@ -1,6 +1,6 @@
 export interface Content {
   adult: boolean;
-  backdrop_paths: string;
+  backdrop_path: string;
   genre_ids: number[];
   id: number;
   original_language: string;
