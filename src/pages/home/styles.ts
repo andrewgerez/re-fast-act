@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
-  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: gray;
+  overflow: hidden;
 `;
 
 export const Hero = styled.div`
@@ -16,9 +16,10 @@ export const Hero = styled.div`
 `;
 
 export const CarouselsWrapper = styled.div`
-  position: absolute;
+  position: relative;
   display: flex;
   flex-direction: column;
-  top: 40rem;
+  height: 36.5rem;
   gap: 1rem;
+  overflow-y: scroll;
 `;

@@ -17,6 +17,21 @@ export function useNavigationHandler({
   elementOnFocus,
   setElementOnFocus,
 }: NavigationHandlerParams) {
+  function scrollYOnFocusReceived(id: string, index: number) {
+    const element = document.getElementById(id);
+    const parentElement = element?.parentElement
+
+    if (!element) return;
+
+    const elementHeight = element.offsetHeight;
+
+    parentElement?.scrollTo({
+      top: elementHeight * index,
+      left: 0,
+      behavior: 'smooth',
+    })
+  }
+  
   return useCallback((event: KeyboardEvent) => {
     const element = getDOMElement(elementOnFocus)
     const parentElement = element?.parentElement
@@ -49,6 +64,8 @@ export function useNavigationHandler({
         elementId: nextChildrenInNextParent,
         focusStateDispatcher: setElementOnFocus,
       })
+
+      scrollYOnFocusReceived(previousParentElement, Number(previousParentId))
     }
 
     if (event.key === NavigationDirections.ARROW_DOWN) {
@@ -61,6 +78,8 @@ export function useNavigationHandler({
         elementId: nextChildrenInNextParent,
         focusStateDispatcher: setElementOnFocus,
       })
+
+      scrollYOnFocusReceived(nextParentElement, Number(nextParentId))
     }
   }, [elementOnFocus])
 }
