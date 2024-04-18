@@ -22,4 +22,5 @@ export const CarouselsWrapper = styled.div`
   height: 36.5rem;
   gap: 1rem;
   overflow-y: scroll;
+  overflow-x: hidden;
 `;
