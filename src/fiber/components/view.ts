@@ -1,7 +1,7 @@
 // @ts-nocheck
 
 const ViewValues = {
-  size: 200,
+  size: 1080,
   lineHeight: 24,
 };
 
@@ -22,7 +22,6 @@ class View {
   }
 
   getAndUpdateCurrentLayout = () => {
-    const {style} = this.getLayoutDefinitions();
     const currentRelativeIndex = this.layout.relativeIndex;
     this.layout = {
       relativeIndex: this.layout.relativeIndex + 1,
