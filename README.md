@@ -1,7 +1,3 @@
-# react-mutation
+# re - fast 🏎️ - act
 
-[⚠️ in-progress] A new way to use React in outdated, low-memory environments. Designed for devices, perfect for developers. 😼
-
-[ x ] canvas
-[   ] reconciler
-[   ] custom rerender
+[⚠️ in-progress] A new way to use React in outdated, low-memory environments.
